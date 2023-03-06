@@ -1,6 +1,6 @@
 import express from "express";
 import { fetchAPI } from "../service/fetchAPI.js";
-import { getPainting } from "../controler/queries.js";
+import { getPainting } from "../service/queries.js";
 const router = express.Router();
 
 // 
