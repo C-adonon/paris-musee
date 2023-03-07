@@ -10,6 +10,19 @@ const prisma = new PrismaClient();
 const router = express.Router();
 
 //
+// GETS A RANDOM SET OF FOUR PAINTERS
+//
+
+router.get("/random", async (req, res, next) => {
+  try {
+    let randomPainters = await GetRandomPainters(prisma);
+    res.json(randomPainters);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+//
 // GETS ALL PAINTERS
 //
 
@@ -27,7 +40,7 @@ router.get("/", async (req, res, next) => {
 //
 
 router.get("/:id", async (req, res, next) => {
-  const painterId = req.params.uuid;
+  const painterId = parseInt(req.params.id);
   try {
     let painter = await getOnePainter(prisma, painterId);
     res.json(painter);
@@ -45,21 +58,6 @@ router.get("/:id/paintings", async (req, res, next) => {
   try {
     let paintings = await getPaintersPaintings(prisma, painterId);
     res.json(paintings);
-  } catch (error) {
-    return next(error);
-  }
-});
-
-//
-// GETS A RANDOM SET OF FOUR PAINTERS
-//
-
-router.get("/random", async (req, res, next) => {
-  try {
-    // let x = Math.floor(Math.random() * 7);
-    let randomPainters = await GetRandomPainters(prisma);
-    res.json(randomPainters);
-    // res.json("random painters");
   } catch (error) {
     return next(error);
   }
