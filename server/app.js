@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import admin from "./routes/admin.js";
 import paintings from "./routes/paintings.js";
+import painters from "./routes/painters.js";
 
 // initialize app
 export const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 // Router
 app.use("/admin", admin);
 app.use("/paintings", paintings);
+app.use("/painters", painters);
 
 // Middleware d'erreurs
 app.use((err, req, res, next) => {
