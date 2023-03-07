@@ -17,21 +17,20 @@ model Admins {
 }
 
 model Paintings {
-  id            Int     @id @default(autoincrement())
-  painting_uuid String  @unique
-  url           String  @db.VarChar(255)
-  artist_id     Int
-  artist        Artists @relation(fields: [artist_id], references: [id])
+  id            Int       @id @default(autoincrement())
+  painting_uuid String    @unique
+  url           String?   @db.VarChar(255)
+  painter_id    Int?
+  painter       Painters? @relation(fields: [painter_id], references: [id])
 }
 
-model Artists {
+model Painters {
   id              Int         @id @default(autoincrement())
-  artist_uuid     String      @unique
-  name            String      @db.VarChar(255)
-  date_of_birth   DateTime
-  date_of_death   DateTime
-  picture         String      @db.VarChar(255)
-  picture_credits String      @db.VarChar(255)
-  wiki_link       String      @db.VarChar(255)
+  name            String      @db.VarChar(255) @unique
+  date_of_birth   String?
+  date_of_death   String?
+  picture         String?     @db.VarChar(255)
+  picture_credits String?     @db.VarChar(255)
+  wiki_link       String?     @db.VarChar(255)
   Paintings       Paintings[]
 }
