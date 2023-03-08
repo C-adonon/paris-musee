@@ -17,5 +17,8 @@ $font-family: "Roboto", sans-serif;
 }
 
 @media (max-width: 768px) {
-
+  body {
+    background-color: $dark-blue;
+    font-family: $font-family;
+  }
 }
