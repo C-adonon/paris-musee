@@ -6,6 +6,7 @@ export const useStore = defineStore("store", {
     error: null,
     playerScore: 0,
     rounds: 0,
+    score: 0,
   }),
 
   // Définition des accesseurs getters
@@ -19,6 +20,9 @@ export const useStore = defineStore("store", {
     getRounds() {
       return this.rounds;
     },
+    getScore(){
+      return this.score;
+    }
   },
 
   // Définition des mutateurs actions
@@ -33,5 +37,9 @@ export const useStore = defineStore("store", {
     setRounds(rounds) {
       this.rounds = rounds;
     },
+    setScore(score){
+      this.score = score;
+    }
+
   },
 });
