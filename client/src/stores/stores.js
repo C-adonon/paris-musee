@@ -17,7 +17,7 @@ export const useStore = defineStore("store", {
     getPlayerScore() {
       return this.playerScore;
     },
-    getRounds() {
+    getRound() {
       return this.rounds;
     },
     getScore(){
@@ -34,7 +34,7 @@ export const useStore = defineStore("store", {
     setPlayerScore(score) {
       this.playerScore = score;
     },
-    setRounds(rounds) {
+    setRound(rounds) {
       this.rounds = rounds;
     },
     setScore(score){
