@@ -9,7 +9,11 @@ import painters from "./routes/painters.js";
 export const app = express();
 
 // CORS
-app.use(cors({ origin: "http://localhost:5173/" }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173/","http://localhost:5173"],
+  })
+);
 
 // For parsing application/json
 app.use(express.json());
