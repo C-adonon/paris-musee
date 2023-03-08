@@ -1,18 +1,19 @@
 <script setup>
 import { useStore } from '@/stores/stores.js';
+import router from '@/router/index.js';
 import QuizBreadcrumb from '@/components/QuizBreadcrumb.vue';
 import QuizImage from '@/components/QuizImage.vue';
 import QuizAnswer from '@/components/QuizAnswer.vue';
 import QuizResult from './QuizResult.vue';
 import QuizNextBtn from './QuizNextBtn.vue';
-import { getRandomPainters, getPaintingById, getRandomPaintingByPainterId } from '@/services/helpers.js';
+import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/helpers.js';
 </script>
 
 <template>
   <section class="container">
     <!-- Quiz header -->
     <div class="quiz-top">
-      <QuizBreadcrumb />
+      <QuizBreadcrumb :questionNbr="this.round" />
       <h2>Qui a paint cette oeuvre ?</h2>
     </div>
     <!-- Painting's image -->
@@ -30,7 +31,7 @@ import { getRandomPainters, getPaintingById, getRandomPaintingByPainterId } from
       <p class="help" v-if="this.answered == false">choisissez une réponse</p>
       <div class="result" v-else-if="this.answered == true">
         <QuizResult :result="this.correctlyAnswered" />
-        <QuizNextBtn />
+        <QuizNextBtn @click="nextQuestion" />
       </div>
     </div>
   </section>
@@ -48,37 +49,19 @@ export default {
   },
   data() {
     return {
+      isQuizFinished: false,
       painters: [],
-      // rightAnswer: {},
-      currentQuestion: {},
-      // currentQuestionIndex: 0,
-      round: 1,
-      // isLastQuestion: false,
-      // isFirstQuestion: false,
-      currentPainting: null,
+      currentPainting: [],
       imageUrl: "",
       answered: false,
       correctlyAnswered: false,
       score: 0,
+      totalRounds: 10,
+      round: 1,
     }
   },
   async created() {
-    // gets a set of 4 painters
-    this.painters = await getRandomPainters();
-    console.log(this.painters);
-    // gets a random painter from the painters array
-    this.currentPainter = this.painters[Math.floor(Math.random() * this.painters.length)];
-    console.log(this.currentPainter);
-    console.log(this.currentPainter.id);
-    // gets a random painting from the current painter
-    this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
-    console.log(this.currentPainting);
-    console.log(this.currentPainting[0].url);
-    // sets the image url
-    this.imageUrl = this.currentPainting[0].url;
-    console.log(this.imageUrl);
-    console.log(this.answered);
-
+    this.initializeQuiz();
   },
   methods: {
     // Checks if the answer is correct
@@ -86,11 +69,8 @@ export default {
       this.answered = true;
       if (answerId == this.currentPainter.id) {
         this.correctlyAnswered = true;
-        console.log("correct");
-        this.updateScore();
         // Store
-      } else {
-        console.log("wrong");
+        this.updateScore();
       }
     },
 
@@ -98,68 +78,49 @@ export default {
     updateScore() {
       this.score++;
       useStore().setScore(this.score);
+      console.log(useStore().getScore);
     },
 
-
-
-    // nextQuestionHandler() {
-    //   if (this.isLastQuestion) {
-    //     this.resetQuiz();
-    //   } else {
-    //     this.nextQuestion();
-    //   }
-    // },
-    // previousQuestionHandler() {
-    //   if (this.isFirstQuestion) {
-    //     this.resetQuiz();
-    //   } else {
-    //     this.previousQuestion();
-    //   }
-    // },
-
     // Initialize the quiz
+    async initializeQuiz() {
+      // gets a set of 4 painters
+      this.painters = await getRandomPainters();
+      // gets a random painter from the painters array
+      this.currentPainter = this.painters[Math.floor(Math.random() * this.painters.length)];
+      // gets a random painting from the current painter
+      this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
+      // sets the image url
+      this.imageUrl = this.currentPainting[0].url;
+    },
 
-    // Go to the next question
+    updateRound() {
+      this.round++;
+      useStore().setRound(this.round);
+      console.log(useStore().getRound);
+    },
 
-    // End the quiz
+    // Reset the quiz
+    resetQuestion() {
+      this.isQuizFinished = false
+      this.painters = []
+      this.currentPainting = []
+      this.imageUrl = ""
+      this.answered = false
+      this.correctlyAnswered = false
+    },
+
+    // Goes to the next question or ends the quiz
+    nextQuestion() {
+      this.updateRound();
+      if (this.round > this.totalRounds) {
+        this.isQuizFinished = true;
+        router.replace({ path: '/game-end' })
+      } else {
+        this.resetQuestion();
+        this.initializeQuiz();
+      }
+    },
   }
-
-
-  // setup() {
-  // const store = useStore();
-  // const { currentQuestion, currentQuestionIndex, questions } = store.state.quiz;
-  // const { nextQuestion, previousQuestion, resetQuiz } = store.actions.quiz;
-  // const { showHelp } = store.actions.help;
-
-  // const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  // const isFirstQuestion = currentQuestionIndex === 0;
-
-  // const nextQuestionHandler = () => {
-  //   if (isLastQuestion) {
-  //     resetQuiz();
-  //   } else {
-  //     nextQuestion();
-  //   }
-  // };
-
-  // const previousQuestionHandler = () => {
-  //   if (isFirstQuestion) {
-  //     resetQuiz();
-  //   } else {
-  //     previousQuestion();
-  //   }
-  // };
-
-  // return {
-  //   currentQuestion,
-  //   currentQuestionIndex,
-  //   questions,
-  //   nextQuestionHandler,
-  //   previousQuestionHandler,
-  //   showHelp,
-  // };
-  // },
-
 }
 
 </script>
