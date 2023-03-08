@@ -24,7 +24,6 @@ export default {
     methods: {
         answer() {
             this.$emit('answer', this.painterData.id)
-            console.log(this.painterData.id)
             this.changeColorAnswer();
             this.disableButtons();
         },
@@ -54,7 +53,7 @@ export default {
 @import "../assets/main.scss";
 
 button.answer {
-    background-color: $white;
+    background-color: $light-grey;
     border: none;
     width: 100%;
     height: 45px;
