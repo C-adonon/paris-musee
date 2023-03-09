@@ -92,16 +92,15 @@ export default {
       this.currentPainter = this.painters[Math.floor(Math.random() * this.painters.length)];
       // gets a random painting from the current painter
       this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
-      console.table(this.currentPainting);
       // Checks if the painting has already been answered
-      this.removeDuplicates(this.currentPainting[0].painting_uuid);
+      this.removeDuplicates(this.currentPainting.painting_uuid);
       // sets the image url
-      this.imageUrl = this.currentPainting[0].url;
+      this.imageUrl = this.currentPainting.url;
     },
 
     // Updates AllGameAnswers
     updateAllGameAnswers() {
-      this.previousAnswers.push(this.currentPainting[0].painting_uuid)
+      this.previousAnswers.push(this.currentPainting.painting_uuid)
       useStore().setAllGameAnswers(this.previousAnswers);
     },
 
