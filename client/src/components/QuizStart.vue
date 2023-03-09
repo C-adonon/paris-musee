@@ -1,3 +1,7 @@
+<script setup>
+import router from '@/router/index.js';
+</script>
+
 <template>
     <div class="quiz-start">
         <h1>Quiz</h1>
@@ -10,7 +14,7 @@ export default {
     name: 'QuizStart',
     methods: {
         startQuiz() {
-            this.$router.push('/quiz');
+            router.replace({ path: '/game' });
         }
     }
 }
