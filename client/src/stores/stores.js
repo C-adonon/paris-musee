@@ -4,8 +4,6 @@ export const useStore = defineStore("store", {
   // Définition des states
   state: () => ({
     error: null,
-    playerScore: 0,
-    rounds: 0,
     score: 0,
   }),
 
@@ -14,15 +12,9 @@ export const useStore = defineStore("store", {
     getError() {
       return this.error;
     },
-    getPlayerScore() {
-      return this.playerScore;
-    },
-    getRound() {
-      return this.rounds;
-    },
-    getScore(){
+    getScore() {
       return this.score;
-    }
+    },
   },
 
   // Définition des mutateurs actions
@@ -31,15 +23,8 @@ export const useStore = defineStore("store", {
       if (text == "") text = null;
       this.error = text;
     },
-    setPlayerScore(score) {
-      this.playerScore = score;
-    },
-    setRound(rounds) {
-      this.rounds = rounds;
-    },
-    setScore(score){
+    setScore(score) {
       this.score = score;
-    }
-
+    },
   },
 });
