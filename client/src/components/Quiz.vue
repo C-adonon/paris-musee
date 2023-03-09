@@ -10,6 +10,8 @@ import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/help
 </script>
 
 <template>
+  <div class="bg bg-1"></div>
+  <div class="bg bg-2"></div>
   <section class="container">
     <!-- Quiz header -->
     <div class="quiz-top">
@@ -58,6 +60,7 @@ export default {
       score: 0,
       totalRounds: 10,
       round: 1,
+      previousAnswers: []
     }
   },
   async created() {
@@ -89,10 +92,44 @@ export default {
       this.currentPainter = this.painters[Math.floor(Math.random() * this.painters.length)];
       // gets a random painting from the current painter
       this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
+      console.table(this.currentPainting);
+      // Checks if the painting has already been answered
+      this.removeDuplicates(this.currentPainting[0].painting_uuid);
       // sets the image url
       this.imageUrl = this.currentPainting[0].url;
     },
 
+    // Updates AllGameAnswers
+    updateAllGameAnswers() {
+      this.previousAnswers.push(this.currentPainting[0].painting_uuid)
+      useStore().setAllGameAnswers(this.previousAnswers);
+    },
+
+    // Gets AllGameAnswers
+    getAllGameAnswers() {
+      return useStore().getAllGameAnswers;
+    },
+
+    // Removes duplicates
+    removeDuplicates(paintinId) {
+      let previousAnswers = this.getAllGameAnswers();
+      // console.table("previousAnswers :" + previousAnswers);
+      if (previousAnswers.length == 0) {
+        console.log("no previous answers");
+        return;
+      } else {
+        previousAnswers.forEach(async previousAnswer => {
+          if (paintinId == previousAnswer) {
+            console.log("painting already answered");
+            this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
+          } else {
+            console.log("painting not answered yet");
+          }
+        });
+      }
+    },
+
+    // Updates the round
     updateRound() {
       this.round++;
       useStore().setRound(this.round);
@@ -112,10 +149,13 @@ export default {
     // Goes to the next question or ends the quiz
     nextQuestion() {
       this.updateRound();
+      this.updateAllGameAnswers();
       if (this.round > this.totalRounds) {
         this.isQuizFinished = true;
         router.replace({ path: '/game-end' })
       } else {
+        // updates AllGameAnswers
+        console.table(this.getAllGameAnswers());
         this.resetQuestion();
         this.initializeQuiz();
       }
