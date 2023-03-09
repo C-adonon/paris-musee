@@ -5,6 +5,8 @@ export const useStore = defineStore("store", {
   state: () => ({
     error: null,
     score: 0,
+    round: 0,
+    AllGameAnswers: [],
   }),
 
   // Définition des accesseurs getters
@@ -14,6 +16,12 @@ export const useStore = defineStore("store", {
     },
     getScore() {
       return this.score;
+    },
+    getRound() {
+      return this.round;
+    },
+    getAllGameAnswers() {
+      return this.AllGameAnswers;
     },
   },
 
@@ -25,6 +33,12 @@ export const useStore = defineStore("store", {
     },
     setScore(score) {
       this.score = score;
+    },
+    setRound(round) {
+      this.round = round;
+    },
+    setAllGameAnswers(answers) {
+      this.AllGameAnswers = answers;
     },
   },
 });
