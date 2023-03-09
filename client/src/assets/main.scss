@@ -18,13 +18,51 @@ $font-family: "Roboto", sans-serif;
   padding: 0;
 }
 
+button {
+  font-family: $font-family;
+}
+
 @media (max-width: 768px) {
   body {
-    background-color: $dark-blue;
+    background-color: $white;
     font-family: $font-family;
     font-size: 16px;
     font-weight: 700;
     color: $white;
+
+    div.end-start {
+      background-color: $dark-blue;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      gap: 5vh;
+      
+      button {
+        padding: 20px 40px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+
+    div.bg {
+      top: -72%;
+      left: -144%;
+      height: 100vh;
+      width: 200vh;
+      position: fixed;
+      z-index: -1;
+      &.bg-1 {
+        top: -62%;
+        background-color: $light-blue;
+        transform: rotate(140deg);
+      }
+      &.bg-2 {
+        background-color: $dark-blue;
+        transform: rotate(137deg);
+      }
+    }
 
     section.container {
       display: flex;
@@ -66,6 +104,7 @@ $font-family: "Roboto", sans-serif;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-top: 5%;
         }
       }
 
