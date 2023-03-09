@@ -3,8 +3,8 @@ import router from '@/router/index.js';
 </script>
 
 <template>
-    <div class="quiz-start">
-        <h1>Quiz</h1>
+    <div class="end-start">
+        <h1>Quiz Paris Musées</h1>
         <button @click="startQuiz">Démarrer le Quiz</button>
     </div>
 </template>

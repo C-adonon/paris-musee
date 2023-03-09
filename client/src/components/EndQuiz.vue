@@ -1,11 +1,13 @@
 <script setup>
 import { useStore } from '@/stores/stores.js';
+import router from '@/router/index.js';
 </script>
 
 <template>
-    <div>
-        <h1>This is the end of the quiz</h1>
-        <h2>Your score is {{ score }}</h2>
+    <div class="end-start">
+        <h1>Partie terminée !</h1>
+        <h2>Votre score est {{ score }}</h2>
+        <button @click="startQuiz">Rejouer ?</button>
     </div>
 </template>
 
@@ -19,7 +21,23 @@ export default {
     },
     created() {
         this.score = useStore().getScore;
+    },
+    methods: {
+        startQuiz() {
+            router.replace({ path: '/' });
+        }
     }
 };
 
 </script>
+
+<style scoped lang="scss">
+@import "../assets/main.scss";
+
+.end-start {
+    h1,
+    h2 {
+        text-align: center;
+    }
+}
+</style>
