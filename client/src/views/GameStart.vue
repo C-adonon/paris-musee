@@ -1,5 +1,5 @@
 <script setup>
-import QuizStart from '../components/QuizStart.vue'
+import QuizStart from '@/components/QuizStart.vue'
 </script>
 
 <template>
