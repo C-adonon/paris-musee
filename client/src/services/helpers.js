@@ -14,8 +14,8 @@ export async function getRandomPaintingByPainterId(id) {
   return response.data;
 }
 
-// Gets a specified painting
-export async function getPaintingById(id) {
-  const response = await axios.get(`${API}/paintings/${id}`);
+// Gets all paintings
+export async function getAllPaintings() {
+  const response = await axios.get(`${API}/paintings`);
   return response.data;
 }
