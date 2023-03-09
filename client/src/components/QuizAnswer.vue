@@ -35,7 +35,7 @@ export default {
                 clickedAnswer.classList.add('right-answer');
             } else {
                 clickedAnswer.classList.add('wrong-answer');
-                correctAnswer.classList.add('right-answer');
+                correctAnswer.classList.add('show-answer');
             }
         },
         // Disables all buttons when an answer is selected
@@ -61,11 +61,15 @@ button.answer {
     font-weight: 700;
 
     &.right-answer {
-        background-color: $green;
+        border: solid 4px $green;
     }
 
     &.wrong-answer {
         background-color: $red;
+    }
+
+    &.show-answer {
+        border: solid 4px $dark-blue;
     }
 }
 </style>
