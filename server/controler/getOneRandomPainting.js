@@ -3,7 +3,7 @@ export async function getOneRandomPainting(
   painterId,
   AllPaintingsLength
 ) {
-  let randomPainting = await prisma.paintings.findMany({
+  let randomPainting = await prisma.paintings.findFirst({
     where: {
       painter_id: painterId,
     },
