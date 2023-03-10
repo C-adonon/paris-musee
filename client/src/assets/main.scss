@@ -1,5 +1,4 @@
 // Colors
-
 $dark-blue: #15245a;
 $light-blue: #4b68d7;
 $white: #fff;
@@ -22,6 +21,7 @@ button {
   font-family: $font-family;
 }
 
+// Mobile Styles
 @media (max-width: 768px) {
   body {
     background-color: $white;
@@ -29,7 +29,7 @@ button {
     font-size: 16px;
     font-weight: 700;
     color: $white;
-
+    
     div.end-start {
       background-color: $dark-blue;
       display: flex;
@@ -38,7 +38,7 @@ button {
       justify-content: center;
       height: 100vh;
       gap: 5vh;
-      
+
       button {
         padding: 20px 40px;
         font-size: 20px;
@@ -68,7 +68,7 @@ button {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-evenly;
+      justify-content: space-between;
       height: calc(100vh - 30px);
       margin: 15px;
       overflow-y: auto;
