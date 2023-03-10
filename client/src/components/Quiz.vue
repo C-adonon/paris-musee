@@ -93,12 +93,12 @@ export default {
       // gets a random painting from the current painter
       this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
       // Checks if the painting has already been answered
-      this.removeDuplicates(this.currentPainting.painting_uuid);
+      await this.removeDuplicates(this.currentPainting.painting_uuid);
       // Updates AllGameAnswers
       this.updateAllGameAnswers();
       // sets the image url
       this.imageUrl = this.currentPainting.url;
-
+      console.log(this.currentPainting.url);
     },
 
     // Updates AllGameAnswers
@@ -121,8 +121,8 @@ export default {
       while (isDuplicate) {
         console.log("isDuplicate :" + isDuplicate);
         let newPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
-        if (newPainting.painting_uuid !== this.currentPainting.painting_uuid) {
-        // if (previousAnswers.includes(newPainting.painting_uuid) == false) {
+        if (newPainting.painting_uuid !== this.currentPainting.painting_uuid && previousAnswers.includes(newPainting.painting_uuid) == false) {
+          // if (previousAnswers.includes(newPainting.painting_uuid) == false) {
           console.log("Current Painting :");
           console.log(this.currentPainting);
           this.currentPainting = newPainting;
@@ -131,8 +131,19 @@ export default {
           // console.log(newPainting);
           isDuplicate = false;
           break;
+        } else {
+          // All paintings from the current painter have already been answered
+          // Creates a new array with all the painters except the current painter
+          let newPainterTab = this.painters.filter(painter => painter.id !== this.currentPainter.id);
+          console.log(newPainterTab);
+          // Gets a random painter from the new array
+          this.currentPainter = newPainterTab[Math.floor(Math.random() * newPainterTab.length)];
+          // Gets a random painting from the new painter
+          this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
+          console.log(this.currentPainting);
+          // Assigns the new painting to the current painting
+          // this.currentPainting = newCurrentPainting;
         }
-        console.log("painting already answered");
       }
     },
 
@@ -167,6 +178,7 @@ export default {
         this.initializeQuiz();
       }
     },
+
   }
 }
 
