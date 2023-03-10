@@ -98,7 +98,7 @@ export default {
       this.updateAllGameAnswers();
       // sets the image url
       this.imageUrl = this.currentPainting.url;
-      console.log(this.currentPainting.url);
+      // console.log(this.currentPainting.url);
     },
 
     // Updates AllGameAnswers
@@ -115,19 +115,19 @@ export default {
     // Removes duplicates
     async removeDuplicates(paintinUuid) {
       let previousAnswers = this.getAllGameAnswers();
-      console.log("Previous Answers :");
-      console.table(previousAnswers);
+      // console.log("Previous Answers :");
+      // console.table(previousAnswers);
       let isDuplicate = previousAnswers.includes(paintinUuid);
       while (isDuplicate) {
-        console.log("isDuplicate :" + isDuplicate);
+        // console.log("isDuplicate :" + isDuplicate);
         let newPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
         if (newPainting.painting_uuid !== this.currentPainting.painting_uuid && previousAnswers.includes(newPainting.painting_uuid) == false) {
           // if (previousAnswers.includes(newPainting.painting_uuid) == false) {
-          console.log("Current Painting :");
-          console.log(this.currentPainting);
+          // console.log("Current Painting :");
+          // console.log(this.currentPainting);
           this.currentPainting = newPainting;
-          console.log("New Painting :");
-          console.log(this.currentPainting);
+          // console.log("New Painting :");
+          // console.log(this.currentPainting);
           // console.log(newPainting);
           isDuplicate = false;
           break;
@@ -135,12 +135,12 @@ export default {
           // All paintings from the current painter have already been answered
           // Creates a new array with all the painters except the current painter
           let newPainterTab = this.painters.filter(painter => painter.id !== this.currentPainter.id);
-          console.log(newPainterTab);
+          // console.log(newPainterTab);
           // Gets a random painter from the new array
           this.currentPainter = newPainterTab[Math.floor(Math.random() * newPainterTab.length)];
           // Gets a random painting from the new painter
           this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
-          console.log(this.currentPainting);
+          // console.log(this.currentPainting);
           // Assigns the new painting to the current painting
           // this.currentPainting = newCurrentPainting;
         }
