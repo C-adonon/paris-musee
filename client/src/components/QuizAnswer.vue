@@ -56,16 +56,24 @@ button.answer {
     background-color: $light-grey;
     border: none;
     width: 100%;
-    height: 45px;
+    height: 38px;
     font-size: 16px;
     font-weight: 700;
+    line-height: 19px;
 
+    &:disabled {
+        color: black;
+    }
+    
     &.right-answer {
         border: solid 4px $green;
     }
-
+    
     &.wrong-answer {
         background-color: $red;
+        &:disabled {
+            color: $white;
+        }
     }
 
     &.show-answer {
