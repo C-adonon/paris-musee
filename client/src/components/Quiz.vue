@@ -16,7 +16,7 @@ import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/help
     <!-- Quiz header -->
     <div class="quiz-top">
       <QuizBreadcrumb :questionNbr="this.round" />
-      <h2>Qui a paint cette oeuvre ?</h2>
+      <h2>Qui a peint cette oeuvre ?</h2>
     </div>
     <!-- Painting's image -->
     <div class="painting-image">
@@ -81,7 +81,7 @@ export default {
     updateScore() {
       this.score++;
       useStore().setScore(this.score);
-      console.log(useStore().getScore);
+      // console.log(useStore().getScore);
     },
 
     // Initialize the quiz
@@ -114,15 +114,14 @@ export default {
       let previousAnswers = this.getAllGameAnswers();
       // console.table("previousAnswers :" + previousAnswers);
       if (previousAnswers.length == 0) {
-        console.log("no previous answers");
-        return;
+        // console.log("no previous answers");
       } else {
         previousAnswers.forEach(async previousAnswer => {
           if (paintinId == previousAnswer) {
-            console.log("painting already answered");
+            // console.log("painting already answered");
             this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
           } else {
-            console.log("painting not answered yet");
+            // console.log("painting not answered yet");
           }
         });
       }
@@ -132,7 +131,7 @@ export default {
     updateRound() {
       this.round++;
       useStore().setRound(this.round);
-      console.log(useStore().getRound);
+      // console.log(useStore().getRound);
     },
 
     // Reset the quiz
@@ -154,7 +153,7 @@ export default {
         router.replace({ path: '/game-end' })
       } else {
         // updates AllGameAnswers
-        console.table(this.getAllGameAnswers());
+        // console.table(this.getAllGameAnswers());
         this.resetQuestion();
         this.initializeQuiz();
       }
