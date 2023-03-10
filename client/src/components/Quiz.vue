@@ -53,7 +53,7 @@ export default {
     return {
       isQuizFinished: false,
       painters: [],
-      currentPainting: [],
+      currentPainting: {},
       imageUrl: "",
       answered: false,
       correctlyAnswered: false,
@@ -93,9 +93,13 @@ export default {
       // gets a random painting from the current painter
       this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
       // Checks if the painting has already been answered
+      console.log("Current Painting :");
+      console.log(this.currentPainting.painting_uuid);
       this.removeDuplicates(this.currentPainting.painting_uuid);
       // sets the image url
       this.imageUrl = this.currentPainting.url;
+      // Updates AllGameAnswers
+      this.updateAllGameAnswers();
     },
 
     // Updates AllGameAnswers
@@ -110,20 +114,20 @@ export default {
     },
 
     // Removes duplicates
-    removeDuplicates(paintinId) {
+    async removeDuplicates(paintinUuid) {
       let previousAnswers = this.getAllGameAnswers();
-      // console.table("previousAnswers :" + previousAnswers);
-      if (previousAnswers.length == 0) {
-        // console.log("no previous answers");
-      } else {
-        previousAnswers.forEach(async previousAnswer => {
-          if (paintinId == previousAnswer) {
-            // console.log("painting already answered");
-            this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
-          } else {
-            // console.log("painting not answered yet");
-          }
-        });
+      console.log("Previous Answers :");
+      console.table(previousAnswers);
+      let isDuplicate = previousAnswers.includes(paintinUuid);
+      while (isDuplicate) {
+        console.log("isDuplicate :" + isDuplicate);
+        let newPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
+        if (!previousAnswers.includes(newPainting.painting_uuid)) {
+          this.currentPainting = newPainting;
+          isDuplicate = false;
+          break;
+        }
+        console.log("painting already answered");
       }
     },
 
@@ -147,7 +151,7 @@ export default {
     // Goes to the next question or ends the quiz
     nextQuestion() {
       this.updateRound();
-      this.updateAllGameAnswers();
+      // this.updateAllGameAnswers();
       if (this.round > this.totalRounds) {
         this.isQuizFinished = true;
         router.replace({ path: '/game-end' })
