@@ -93,13 +93,12 @@ export default {
       // gets a random painting from the current painter
       this.currentPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
       // Checks if the painting has already been answered
-      console.log("Current Painting :");
-      console.log(this.currentPainting.painting_uuid);
       this.removeDuplicates(this.currentPainting.painting_uuid);
-      // sets the image url
-      this.imageUrl = this.currentPainting.url;
       // Updates AllGameAnswers
       this.updateAllGameAnswers();
+      // sets the image url
+      this.imageUrl = this.currentPainting.url;
+
     },
 
     // Updates AllGameAnswers
@@ -122,8 +121,14 @@ export default {
       while (isDuplicate) {
         console.log("isDuplicate :" + isDuplicate);
         let newPainting = await getRandomPaintingByPainterId(this.currentPainter.id);
-        if (!previousAnswers.includes(newPainting.painting_uuid)) {
+        if (newPainting.painting_uuid !== this.currentPainting.painting_uuid) {
+        // if (previousAnswers.includes(newPainting.painting_uuid) == false) {
+          console.log("Current Painting :");
+          console.log(this.currentPainting);
           this.currentPainting = newPainting;
+          console.log("New Painting :");
+          console.log(this.currentPainting);
+          // console.log(newPainting);
           isDuplicate = false;
           break;
         }
