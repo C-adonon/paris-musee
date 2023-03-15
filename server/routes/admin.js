@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
-import { auth } from "../authentification/auth_middleware.js";
 import { AdminValidator } from "../validators/AdminValidator.js";
 
 const router = express.Router();
