@@ -1,10 +1,10 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { fetchAPI } from "../service/fetchAPI.js";
-import { getPainting } from "../service/queries.js";
-import { sendPaintingData } from "../controler/insertPaintingData.js";
-import { sendPainterData } from "../controler/insertPainterData.js";
-import { AllPaintings } from "../controler/getAllPaintings.js";
+import { fetchAPI } from "../service/API/fetchAPI.js";
+import { getPainting } from "../service/API/queries.js";
+import { sendPaintingData } from "../service/DB/insertPaintingData.js";
+import { sendPainterData } from "../service/DB/insertPainterData.js";
+import { AllPaintings } from "../service/DB/getAllPaintings.js";
 import { auth } from "../authentification/auth_middleware.js";
 
 const prisma = new PrismaClient();
