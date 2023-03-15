@@ -4,7 +4,6 @@ import { AllPainters } from "../service/DB/getAllPainters.js";
 import { getOnePainter } from "../service/DB/getOnePainter.js";
 import { getPaintersPaintings } from "../service/DB/getPaintersPaintings.js";
 import { GetRandomPainters } from "../service/DB/getRandomPainters.js";
-import { getOneRandomPainting } from "../service/DB/getOneRandomPainting.js";
 import { getPaintingController } from "../controller/paintingsController.js";
 
 const prisma = new PrismaClient();
