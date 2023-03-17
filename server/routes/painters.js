@@ -1,4 +1,5 @@
 import express from "express";
+import createHttpError from "http-errors";
 import { PrismaClient } from "@prisma/client";
 import { AllPainters } from "../service/DB/getAllPainters.js";
 import { getOnePainter } from "../service/DB/getOnePainter.js";
@@ -30,6 +31,9 @@ router.get("/search/:id", async (req, res, next) => {
   const painterId = parseInt(req.params.id);
   try {
     let painter = await getOnePainter(prisma, painterId);
+    if (!painter) {
+      return next(createHttpError(404, "No painter found"));
+    }
     res.json(painter);
   } catch (error) {
     return next(error);
@@ -44,6 +48,9 @@ router.get("/:id/paintings", async (req, res, next) => {
   const painterId = parseInt(req.params.id);
   try {
     let paintings = await getPaintersPaintings(prisma, painterId);
+    if (!paintings) {
+      return next(createHttpError(404, "No paintings found"));
+    }
     res.json(paintings);
   } catch (error) {
     return next(error);
@@ -57,6 +64,9 @@ router.get("/:id/paintings", async (req, res, next) => {
 router.get("/random", async (req, res, next) => {
   try {
     let randomPainters = await GetRandomPainters(prisma);
+    if (!randomPainters) {
+      return next(createHttpError(404, "No painters found"));
+    }
     res.json(randomPainters);
   } catch (error) {
     return next(error);

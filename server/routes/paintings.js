@@ -1,4 +1,5 @@
 import express from "express";
+import createHttpError from "http-errors";
 import { PrismaClient } from "@prisma/client";
 import { fetchAPI } from "../service/API/fetchAPI.js";
 import { getPainting } from "../service/API/queries.js";
@@ -142,11 +143,15 @@ router.get("/:uuid", async (req, res, next) => {
     };
     let paintingResult = await sendPaintingData(prisma, paintingData, uuid);
     let painterId = paintingResult.painter_id;
-    console.log(painterId);
+    // console.log(painterId);
     let painterResult = await sendPainterData(prisma, painterData, painterId);
     res.json({ paintingResult, painterResult });
     // res.json(painting);
   } catch (error) {
+    // painting not found
+    if (error.response == undefined) {
+      res.status(404).json({ message: "Painting not found" });
+    }
     return next(error);
   }
 });
