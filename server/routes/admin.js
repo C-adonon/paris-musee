@@ -37,7 +37,7 @@ router.post("/register", async (req, res, next) => {
       password: hashedPassword,
     },
   });
-  console.log(newAdmin);
+  // console.log(newAdmin);
   res.json({ msg: "You have successfully created an account!" });
 });
 
