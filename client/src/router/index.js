@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Game from "../views/Game.vue";
 import GameEnd from "../views/GameEnd.vue";
 import GameStart from "../views/GameStart.vue";
-import Admin from "../views/Admin.vue";
+// import Admin from "../views/Admin.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
