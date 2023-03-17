@@ -22,11 +22,11 @@ const router = createRouter({
       name: "game-start",
       component: GameStart,
     },
-    {
-      path: "/admin",
-      name: "admin",
-      component: Admin,
-    },
+    // {
+    //   path: "/admin",
+    //   name: "admin",
+    //   component: Admin,
+    // },
   ],
 });
 
