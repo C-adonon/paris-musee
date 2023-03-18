@@ -1,5 +1,7 @@
 FROM node:18
 
+ENV VUE_APP_API_URL=https://paris-musee-server-i5jwk.ondigitalocean.app
+
 RUN npm install -g http-server
 
 WORKDIR /usr/src/app
