@@ -4,8 +4,8 @@ import router from '@/router/index.js';
 import QuizBreadcrumb from '@/components/QuizBreadcrumb.vue';
 import QuizImage from '@/components/QuizImage.vue';
 import QuizAnswer from '@/components/QuizAnswer.vue';
-import QuizResult from './QuizResult.vue';
-import QuizNextBtn from './QuizNextBtn.vue';
+import QuizResult from '@/components/QuizResult.vue';
+import QuizNextBtn from '@/components/QuizNextBtn.vue';
 import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/helpers.js';
 </script>
 
@@ -150,7 +150,7 @@ export default {
     // Updates the round
     updateRound() {
       this.round++;
-      useStore().setRound(this.round);
+      // useStore().setRound(this.round);
       // console.log(useStore().getRound);
     },
 
