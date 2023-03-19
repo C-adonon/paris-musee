@@ -1,5 +1,5 @@
 <script setup>
-import EndQuiz from '../components/EndQuiz.vue'
+import EndQuiz from '@/components/EndQuiz.vue'
 </script>
 
 <template>
