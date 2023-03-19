@@ -15,7 +15,7 @@ import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/help
   <section class="container">
     <!-- Quiz header -->
     <div class="quiz-top">
-      <QuizBreadcrumb :questionNbr="this.round" />
+      <QuizBreadcrumb :questionNbr="round" />
       <h2>Qui a peint cette oeuvre ?</h2>
     </div>
     <!-- Painting's image -->
