@@ -14,7 +14,8 @@ export default {
     name: 'QuizStart',
     methods: {
         startQuiz() {
-            router.replace({ path: '/game' });
+            // router.replace({ path: '/game' });
+            router.push({ path: '/game'})
         }
     }
 }
