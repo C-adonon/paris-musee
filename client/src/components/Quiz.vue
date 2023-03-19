@@ -25,7 +25,7 @@ import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/help
     <!-- All answers -->
     <ul class="answer-list">
       <li v-for="(painter, id) in painters" :key="id">
-        <QuizAnswer @answer="checkAnswer" :painterData="painter" :rightAnswer="this.currentPainter.id" />
+        <QuizAnswer @answer="checkAnswer" :painterData="painter" :rightAnswer="currentPainter.id" />
       </li>
     </ul>
     <!-- Next Quiz / Help -->
@@ -54,6 +54,7 @@ export default {
       isQuizFinished: false,
       painters: [],
       currentPainting: {},
+      currentPainter: {},
       imageUrl: "",
       answered: false,
       correctlyAnswered: false,
