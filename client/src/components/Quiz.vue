@@ -20,7 +20,7 @@ import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/help
     </div>
     <!-- Painting's image -->
     <div class="painting-image">
-      <QuizImage :image-url="this.imageUrl" />
+      <QuizImage :image-url="imageUrl" />
     </div>
     <!-- All answers -->
     <ul class="answer-list">
@@ -30,9 +30,9 @@ import { getRandomPainters, getRandomPaintingByPainterId } from '@/services/help
     </ul>
     <!-- Next Quiz / Help -->
     <div class="quiz-bottom">
-      <p class="help" v-if="this.answered == false">choisissez une réponse</p>
-      <div class="result" v-else-if="this.answered == true">
-        <QuizResult :result="this.correctlyAnswered" />
+      <p class="help" v-if="answered == false">choisissez une réponse</p>
+      <div class="result" v-else-if="answered == true">
+        <QuizResult :result="correctlyAnswered" />
         <QuizNextBtn @click="nextQuestion" />
       </div>
     </div>
