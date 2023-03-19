@@ -1,10 +1,6 @@
 import axios from "axios";
 
-// let API = VUE_APP_API_URL;
 let API = eval(process.env.VUE_APP_API_URL);
-
-// console.log("API", API);
-// console.log("response", `${API}/painters/random`);
 
 // Gets 4 random painters
 export async function getRandomPainters() {
